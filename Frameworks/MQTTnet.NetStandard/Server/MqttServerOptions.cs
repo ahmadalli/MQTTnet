@@ -4,9 +4,9 @@ namespace MQTTnet.Server
 {
     public class MqttServerOptions : IMqttServerOptions
     {
-        public MqttServerDefaultEndpointOptions DefaultEndpointOptions { get; } = new MqttServerDefaultEndpointOptions();
+        public MqttServerDefaultEndpointOptions DefaultEndpointOptions { get; set; } = new MqttServerDefaultEndpointOptions();
 
-        public MqttServerTlsEndpointOptions TlsEndpointOptions { get; } = new MqttServerTlsEndpointOptions();
+        public MqttServerTlsEndpointOptions TlsEndpointOptions { get; set; } = new MqttServerTlsEndpointOptions();
 
         public int ConnectionBacklog { get; set; } = 10;
         

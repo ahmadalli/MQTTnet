@@ -11,8 +11,8 @@ namespace MQTTnet.Server
         Action<MqttSubscriptionInterceptorContext> SubscriptionInterceptor { get; }
         Action<MqttApplicationMessageInterceptorContext> ApplicationMessageInterceptor { get; }
 
-        MqttServerDefaultEndpointOptions DefaultEndpointOptions { get; }
-        MqttServerTlsEndpointOptions TlsEndpointOptions { get; }
+        MqttServerDefaultEndpointOptions DefaultEndpointOptions { get; set; }
+        MqttServerTlsEndpointOptions TlsEndpointOptions { get; set; }
 
         IMqttServerStorage Storage { get; }
     }
