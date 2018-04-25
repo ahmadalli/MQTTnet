@@ -196,6 +196,24 @@ namespace MQTTnet.Server
             }
         }
 
+        public async Task DispatchApplicationMessageToClientAsync(MqttClientSession senderClientSession, string clientId, MqttApplicationMessage applicationMessage)
+        {
+            await _semaphore.WaitAsync().ConfigureAwait(false);
+            try
+            {
+                var isSessionPresent = _sessions.TryGetValue(clientId, out var clientSession);
+                if (isSessionPresent)
+                {
+                    await clientSession.EnqueueApplicationMessageAsync(applicationMessage);
+                }
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+
         public async Task SubscribeAsync(string clientId, IList<TopicFilter> topicFilters)
         {
             if (clientId == null) throw new ArgumentNullException(nameof(clientId));
