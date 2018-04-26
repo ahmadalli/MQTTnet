@@ -488,7 +488,7 @@ namespace MQTTnet.Client
 
         private void StartProcessReceivedPacket(MqttBasePacket packet)
         {
-            Task.Run(async () => await ProcessReceivedPacketAsync(packet), _cancellationTokenSource.Token);
+            Task.Run(() => ProcessReceivedPacketAsync(packet), _cancellationTokenSource.Token);
         }
 
         private async Task StartReceivingPacketsAsync()
