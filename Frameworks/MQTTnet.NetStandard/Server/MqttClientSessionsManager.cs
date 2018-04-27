@@ -153,7 +153,10 @@ namespace MQTTnet.Server
 
         public void StartDispatchApplicationMessage(MqttClientSession senderClientSession, MqttApplicationMessage applicationMessage)
         {
-            Task.Run(() => DispatchApplicationMessageAsync(senderClientSession, applicationMessage));
+            Task.Factory.StartNew(() => DispatchApplicationMessageAsync(senderClientSession, applicationMessage),
+                default,
+                TaskCreationOptions.LongRunning,
+                TaskScheduler.Current);
         }
 
         public async Task DispatchApplicationMessageToClientAsync(MqttClientSession senderClientSession, string clientId, MqttApplicationMessage applicationMessage)

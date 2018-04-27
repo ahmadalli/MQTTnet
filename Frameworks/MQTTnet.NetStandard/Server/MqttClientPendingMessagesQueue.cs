@@ -38,7 +38,10 @@ namespace MQTTnet.Server
                 return;
             }
 
-            _workerTask = Task.Run(() => SendQueuedPacketsAsync(adapter, cancellationToken), cancellationToken);
+            _workerTask = Task.Factory.StartNew(() => SendQueuedPacketsAsync(adapter, cancellationToken),
+                cancellationToken,
+                TaskCreationOptions.LongRunning,
+                TaskScheduler.Current);
         }
 
         public void WaitForCompletion()

@@ -36,7 +36,12 @@ namespace MQTTnet.Server
                 return;
             }
 
-            _workerTask = Task.Run(() => RunAsync(keepAlivePeriod, cancellationToken).ConfigureAwait(false), cancellationToken);
+            _workerTask = Task.Factory.StartNew(() => RunAsync(keepAlivePeriod,
+                        cancellationToken)
+                    .ConfigureAwait(false),
+                cancellationToken,
+                TaskCreationOptions.LongRunning,
+                TaskScheduler.Current);
         }
 
         public void WaitForCompletion()
