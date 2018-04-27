@@ -158,7 +158,7 @@ namespace MQTTnet.Server
 
         public async Task DispatchApplicationMessageToClientAsync(MqttClientSession senderClientSession, string clientId, MqttApplicationMessage applicationMessage)
         {
-            await _semaphore.WaitAsync().ConfigureAwait(false);
+            await _sessionsLock.WaitAsync().ConfigureAwait(false);
             try
             {
                 var isSessionPresent = _sessions.TryGetValue(clientId, out var clientSession);
@@ -169,7 +169,7 @@ namespace MQTTnet.Server
             }
             finally
             {
-                _semaphore.Release();
+                _sessionsLock.Release();
             }
         }
 
